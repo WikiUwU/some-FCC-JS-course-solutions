@@ -1,0 +1,18 @@
+function dropElements(arr, func) {
+
+  let previousElement;
+
+  const newArr = arr.filter(element => {
+    if (func(element) || func(previousElement)) {
+      previousElement = element;
+      return true;
+    }else {
+      return false
+    }
+  })
+
+  console.log(newArr)
+  return newArr
+}
+
+dropElements([1, 2, 3], function(n) {return n < 3; });

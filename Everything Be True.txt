@@ -1,0 +1,16 @@
+function truthCheck(collection, pre) {
+
+  const results = [];
+
+  for (let i = 0; i < collection.length; i++) {
+    if (collection[i][pre]) {
+      results.push (true)
+    }else {
+      return false
+    }
+  }
+
+  return results.reduce((acc, currentValue) => acc === currentValue);
+}
+
+truthCheck([{name: "Quincy", role: "Founder", isBot: false}, {name: "Naomi", role: "", isBot: false}, {name: "Camperbot", role: "Bot", isBot: true}], "isBot");

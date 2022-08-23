@@ -1,0 +1,20 @@
+function pairElement(str) {
+  const dnaStrand = [...str];
+  const fullDNA = dnaStrand.map(element => {
+    switch(element) {
+      case "A":
+        return [element, "T"]
+      case "T":
+        return [element, "A"]
+      case "C":
+        return [element, "G"]
+      case "G":
+        return [element, "C"]
+    }
+  })
+
+  console.log(fullDNA);
+  return fullDNA
+}
+
+pairElement("GCG");

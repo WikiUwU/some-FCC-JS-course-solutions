@@ -1,0 +1,48 @@
+const Person = function(firstAndLast) {
+  // Only change code below this line
+  // Complete the method below and implement the others similarly
+  let name = firstAndLast;
+
+  this.getFullName = function() {
+    return name;
+  }
+
+  this.getFirstName = function() {
+    return name.split(" ")[0];
+  }
+
+  this.getLastName = function() {
+    return name.split(" ")[1];
+  }
+
+  this.setFullName = function(firstAndLast) {
+    if (typeof firstAndLast === "string") {
+      name = firstAndLast;
+    }else{
+      return "Please enter a valid name (string)";
+    }
+  }
+
+  this.setFirstName = function(first) {
+    if (typeof first === "string") {
+      name = name.split(" ");
+      name[0] = first;
+      name = name.join(" ")
+    }else{
+      return "Please enter a valid name (string)";
+    }
+  }
+
+  this.setLastName = function(last) {
+    if (typeof last === "string") {
+      name = name.split(" ");
+      name[1] = last;
+      name = name.join(" ")
+    }else{
+      return "Please enter a valid name (string)";
+    }
+  }
+
+
+  return name;
+};

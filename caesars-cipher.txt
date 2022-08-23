@@ -1,0 +1,24 @@
+function rot13(str) {
+  const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+
+  const encryptedLetters = [...str];
+  
+  for (let i = 0; i < encryptedLetters.length; i++) {
+    const letterIndex = alphabet.indexOf(encryptedLetters[i])
+    console.log(letterIndex)
+
+    if (letterIndex !== -1) { 
+      if (letterIndex < 13) { //limit of decrypting via shifting to left
+        encryptedLetters[i] = alphabet[26 + letterIndex - 13]
+      }else{
+        encryptedLetters[i] = alphabet[letterIndex - 13]
+      }
+    }
+
+  };
+
+  console.log(encryptedLetters)
+  return encryptedLetters.join("")
+}
+
+rot13("GNPB PNG");

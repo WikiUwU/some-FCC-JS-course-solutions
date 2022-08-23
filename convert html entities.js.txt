@@ -1,0 +1,31 @@
+function convertHTML(str) {
+  const htmlEntities = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    "\"": "&quot;",
+    "\'": "&apos;"
+  }
+  let newString = str;
+
+  let characterToReplace = str.match(/[&<>"']/g);
+  console.log(characterToReplace)
+
+  if (characterToReplace === null) {
+    return str
+  }
+
+  if (characterToReplace.length > 1) {
+    for (let i = 0; i < characterToReplace.length; i++) {
+      newString = newString.replace(characterToReplace[i], htmlEntities[characterToReplace[i]])
+    }
+  }else {
+    newString = str.replace(characterToReplace, htmlEntities[characterToReplace])
+  }
+
+  return newString
+}
+
+//convertHTML("Dolce & Gabbana");
+//convertHTML("<>")
+convertHTML("abc")

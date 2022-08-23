@@ -1,0 +1,21 @@
+function whatIsInAName(collection, source) {
+  const sourceKeys = Object.keys(source);
+ 
+  const finalArray = collection.filter(obj => {
+    const booleanResult = [];
+    for (let i = 0; i < sourceKeys.length; i++) {
+      if (obj.hasOwnProperty(sourceKeys[i]) && obj[sourceKeys[i]] === source[sourceKeys[i]]) {
+        booleanResult.push(true)
+      }else {
+        booleanResult.push(false)
+      }
+    }
+    return booleanResult.reduce((lastBoolean, currentBoolean) => lastBoolean && currentBoolean)
+  });
+
+  return finalArray;
+}
+
+whatIsInAName([{ "apple": 1, "bat": 2 }, { "apple": 1 }, { "apple": 1, "bat": 2, "cookie": 2 }], { "apple": 1, "cookie": 2 })
+
+//whatIsInAName([{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }], { last: "Capulet" });

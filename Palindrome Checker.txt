@@ -1,0 +1,17 @@
+function palindrome(str) {
+  let dirtyString = str;
+  dirtyString = dirtyString.replace(/[^A-Z0-9]/gi, "")
+
+  const pureStringArr = [...dirtyString.toLowerCase()];
+
+  if (pureStringArr.join("") === pureStringArr.reverse().join("")) {
+    console.log(pureStringArr.join(""))
+    return true
+  }else {
+    console.log(pureStringArr.join(""))
+    return false
+  }
+
+}
+
+palindrome("race car");

@@ -1,0 +1,52 @@
+function allEqual(arr) {
+  return arr.every(element => element === arr[0])
+}
+
+function createRange(start, end) {
+  const arr = [];
+  for (let i = start; i <= end; i++) {
+    arr.push(i)
+  }
+  return arr;
+}
+
+function smallestCommons(arr) {
+  arr.sort((a,b) => a - b)
+
+  const range = createRange(arr[0], arr[1])
+  let sequence = [...range]
+
+  while (allEqual(sequence) !== true) {
+    for (let i = 0; i < sequence.length; i++) {
+      if (sequence[i] === Math.min(...sequence)) {
+        sequence[i] = sequence[i] + range[i];
+        break
+      }
+    }
+  }
+
+  return sequence[0];
+}
+
+smallestCommons([1,13]);
+
+
+//Algorithm to find the smallest common multiple of multiple numbers, very unefficient
+/*
+function simpleAlgorithm(arr) {
+  let sequence = [...arr];
+
+  while (allEqual(sequence) !== true) {
+    for (let i = 0; i < sequence.length; i++) {
+      if (sequence[i] === Math.min(...sequence)) {
+        sequence[i] = sequence[i] + arr[i];
+        break
+      }
+    }
+  }
+
+  return sequence[0];
+
+}
+*/
+

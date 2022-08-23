@@ -1,0 +1,48 @@
+//takes a number and tests if it is a prime
+function isPrime(num) {
+  if (num <= 1) {
+    return false
+  }
+
+  const nSquareRoot = Math.floor( Math.sqrt(num) ); //square root of
+
+  let divisorsFound = 0;
+
+  for (let divisor = 1; divisor <= nSquareRoot; divisor++) {
+    if (num % divisor === 0) {
+      divisorsFound++;
+    }
+    if (divisorsFound > 1) {
+      return false
+    }
+  }
+
+  return true
+}
+
+//generates a list of prime numbers is a specified range
+function generatePrimes(upperLimit) {
+  const primes = [];
+
+  for (let i = 1; i <= upperLimit; i++) {
+    if (isPrime(i)) {
+      primes.push(i);
+    }
+  }
+
+  return primes
+}
+
+
+function sumPrimes(num) {
+  const primeList = generatePrimes(num);
+  let sum = 0;
+
+  for (let i = 0; i < primeList.length; i++) {
+    sum = sum + primeList[i];
+  }
+
+  return sum;
+}
+
+sumPrimes(10);

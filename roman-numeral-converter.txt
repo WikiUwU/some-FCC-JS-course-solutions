@@ -1,0 +1,27 @@
+function convertToRoman(num) {
+  const romanNumerals = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"];
+  const accordingNumerals = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
+
+  let number = num;
+  const romanNumber = [];
+  let i = 0; //iterator
+
+  while (number !== 0) {
+
+    /* Search for a roman number that is equal or less than the given number. Write it down and subtract it from the given number --> Dividing the number up. Repeat process until original number is fully converted (equal to zero) */
+
+    if (accordingNumerals[i] <= number) { 
+      number = number - accordingNumerals[i];
+      romanNumber.push(romanNumerals[i]);
+      i = 0;
+    }else{
+      i++
+    }
+
+  }
+
+  console.log(romanNumber.join(""))
+  return romanNumber.join("")
+}
+
+convertToRoman(420); //420 CDXX

@@ -1,0 +1,18 @@
+function myReplace(str, before, after) {
+
+  let finalString;
+
+  if (before[0] === before[0].toUpperCase()) {
+    after = after.replace(after[0], after[0].toUpperCase());
+    finalString = str.replace(before, after)
+  }else{
+    finalString = str.replace(before, after.toLowerCase())
+  }
+
+
+  return finalString;
+}
+
+myReplace("He is Sleeping on the couch", "Sleeping", "sitting")
+myReplace("A quick brown fox jumped over the lazy dog", "jumped", "leaped");
+myReplace("I think we should look up there", "up", "Down");

@@ -1,0 +1,97 @@
+//Most of the comments show my thinking process to different parts of the problem/challenge
+
+function checkCashRegister(price, cash, cid) {
+  const currencyUnitAmount = {
+    "ONE HUNDRED": 100,
+    "TWENTY": 20,
+    "TEN": 10,
+    "FIVE": 5,
+    "ONE": 1,
+    "QUARTER": 0.25,
+    "DIME": 0.1,
+    "NICKEL": 0.05,
+    "PENNY": 0.01
+  };
+  let change = cash - price;
+  let transactionObject = {};
+  const transactionObjectChangeArr = [];
+  cid = cid.reverse(); //"sort" cash in drawer, so largest currency unit comes first
+
+  //calculate amount of the actual amount of cash in drawer (rounded)
+  let cashInDrawer = cid.reduce((previousValue, initalValue) => {
+    return previousValue + initalValue[1];
+  }, 0)
+  cashInDrawer = Number(cashInDrawer.toFixed(2)) //note: Number.toFixed() converts a num to a string
+
+  if (cashInDrawer === change) {
+    transactionObject.status = "CLOSED";
+    transactionObject.change = cid.reverse(); //order has to be lowest to highest in case of "CLOSED" 
+
+    //return console.log(transactionObject)
+    return transactionObject
+  }
+
+  change = change * 100; //multiply by 100 to create integer to prevent floating point number problems
+
+  let i = 0;
+  for (const key in currencyUnitAmount) {
+    let currencyUnit = currencyUnitAmount[key]
+    let buffer = 0; //A buffer variable to be added to transactionObject as the used the amount of money of a currency unit for change
+    // cid[i][0] = overall amount of cash in drawer of current unit;
+
+    //multiply by 100 to create integer to prevent floating point number problems
+    currencyUnit = currencyUnit * 100;
+    cid[i][1] = cid[i][1] * 100;
+
+    //console.log(`${currencyUnit} < ${change}`)
+    //console.log(cid[i][1])
+    
+    //cashInDrawerOfaUnit !== 0 und  currencyUnit <= change;
+    if (cid[i][1] !== 0 && currencyUnit <= change) {
+      while (cid[i][1] !== 0 && currencyUnit <= change) {
+        change = change - currencyUnit;
+        cid[i][1] = cid[i][1] - currencyUnit;
+        buffer = buffer + currencyUnit;
+      }
+      buffer = buffer / 100;
+      transactionObjectChangeArr.push([key, buffer])
+    }
+    i++
+
+    //to stop the loop for testing purposes --> when the input cid array has fewer items than the currencyAmountUnit object (iterations of the for...in loop)
+    if (cid[i] === undefined) {
+      break
+    }
+  }
+  
+  if (cashInDrawer < change || change !== 0) {
+    transactionObject.status = "INSUFFICIENT_FUNDS";
+    transactionObject.change = [];
+
+    //return console.log(transactionObject)
+    return transactionObject
+  }
+
+  transactionObject.status = "OPEN";
+  transactionObject.change = transactionObjectChangeArr
+
+  //return console.log(transactionObject)
+  return transactionObject
+
+  
+
+  /*Problems to solve: (both solved: DONE)
+  -number rounding problem with float numbers (cent currenc units)? --> work with integers then simply divide the results
+  -how to return {status: "INSUFFICIENT_FUNDS", change: []} if there is enough change, but it cannot be splitted to fit the change? --> simply check at the end if var change === 0, if not the transaction cannot be satisfied --> "INSUFFICIENT_FUNDS"
+  */
+}
+
+checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]])
+
+checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]])
+
+checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]) 
+
+checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])
+
+checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])

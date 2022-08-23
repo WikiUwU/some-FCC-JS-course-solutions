@@ -1,0 +1,33 @@
+//get the greatest common divisor through euclidean algorithm
+function greatestCommonDivisor(a, b) {
+  let remainder;
+  while (b !== 0) {
+    remainder = a % b;
+    a = b;
+    b = remainder;
+  }
+  return a
+}
+
+function leastCommonMultiple(a, b) {
+  const gcd = greatestCommonDivisor(a, b);
+  return  a * (b / gcd)
+}
+
+function createRange(start, end) {
+  const arr = [];
+  for (let i = start; i <= end; i++) {
+    arr.push(i)
+  }
+  return arr;
+}
+
+function smallestCommons(arr) {
+  arr.sort((a, b) => a - b)
+
+  const range = createRange(arr[0], arr[1]);
+
+  return range.reduce((previousValue, currentValue) =>leastCommonMultiple(previousValue, currentValue))
+}
+
+smallestCommons([1,5]);

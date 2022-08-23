@@ -1,0 +1,33 @@
+function telephoneCheck(str) {
+  //https://regex101.com/ Website to analyse regex (what single parts of a expression do)
+
+  const phoneNumberRegex = [
+
+    // /^1?(?= ?[\d+ | \(]) ?/ this part only is responsible to validate the area code
+    //What comes after that is the regex responsible for one of the listed patterns
+    //note: for e.g. 15555555555 is also valid (area code not separated by space)
+
+    //555-555-5555
+    //1 555-555-5555
+    /^1?(?= ?[\d+ | \(]) ?\d{3}-\d{3}-\d{4}/g,
+
+    //(555)555-5555 and (555) 555-5555
+    //1 (555)555-5555 and 1(555) 555-5555
+    /^1?(?= ?[\d+ | \(]) ?\(\d{3}\) ?\d{3}-\d{4}/g,
+
+    //555 555 5555
+    //1 555 555 5555
+    /^1?(?= ?[\d+ | \(]) ?\d{3} \d{3} \d{4}/g,
+
+    //5555555555
+    //1 5555555555
+    /^1?(?= ?[\d+ | \(]) ?\d{3}\d{3}\d{4}$/g
+  ];
+
+
+  const result = phoneNumberRegex.some(pattern => pattern.test(str))
+
+  return result
+}
+
+telephoneCheck("5555555555");

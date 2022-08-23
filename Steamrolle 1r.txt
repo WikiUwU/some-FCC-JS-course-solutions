@@ -1,0 +1,17 @@
+function steamrollArray(arr) {
+
+  //accumulator = previousValue
+  const newArr = arr.reduce((acc, value) => {
+    if (Array.isArray(value)) {
+      return acc.concat(steamrollArray(value))
+    }else{
+      return acc.concat(value)
+    }
+  }, [])
+  //use a empty string as intialValue for concat() method to work
+
+  console.log(newArr)
+  return newArr;
+}
+
+steamrollArray([1, [2], [3, [[4]]]]);
